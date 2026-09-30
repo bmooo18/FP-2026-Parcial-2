@@ -1,162 +1,315 @@
-﻿const int   DISTANCIA_AL_ESPACIO_KM   = 10;
-const int   COMBUSTIBLE_INICIAL       = 5;
-const int   ESCUDO_MAXIMO             = 50;
-const int   ESCUDO_POR_TURNO          = 5;
+﻿/* Cambios
+ * 1. Ajuste de las constantes y los valores iniciales
+ * - Se modificaron los valores de distancia, combustible, escudo y recuperación para que las partidas sean más largas.
+ * - Se cambiaron los nombres de algunas constantes y variables para que sean más descriptivos.
+ * - El jugador ahora comienza con el combustible y el escudo al máximo.
+ * 2. Mejora de la condición del ciclo principal
+ * - Antes, el ciclo continuaba mientras quedara combustible y no se hubiera llegado al espacio.
+ * - Ahora, también comprueba que el jugador tenga suficiente combustible para ascender y que su escudo sea mayor que cero.
+ * 3. Corrección de la validación de opciones
+ * - La opción 3 solamente está disponible en la zona de escombros y cuando hay suficiente combustible.
+ * 4. Sustitución de los condicionales por un switch
+ * - Se reemplazó la estructura if / else if utilizada para ejecutar las acciones del jugador por un switch.
+ * 5. Cambios en los cálculos
+ * - Se introdujeron variables temporales para almacenar los resultados de algunos cálculos.
+ * 6. Mejora de los mensajes y las condiciones de victoria y derrota
+ * - Se agregaron estadísticas del jugador al inicio de cada turno.
+ * - Se agregó un separador visual para distinguir los turnos.
+ * - En lugar de mostrar únicamente si el jugador llegó o no al espacio, ahora se indica si perdió por falta de combustible o por quedarse sin escudo.
+ */
 
-const int ESCUDO_MIN_POR_TURNO = 3;
-const int ESCUDO_MAX_POR_TURNO = 5;
+// Constantes directas
 
-const float ZONA_CALMA_BONO_ESCUDO    = 2f;
-const int   PERDIDA_KM_POR_ESPERAR    = 3;
-const int   COMBUSTIBLE_POR_TURNO     = 2;
-const int   ASCENSO_POR_TURNO         = 2;
-const int   DMG_ESCOMBRO              = 5;
-const int   COMBUSTIBLE_PARA_ESQUIVAR = 2;
+const int   DISTANCIA_AL_ESPACIO    = 100;
+const int   COMBUSTIBLE_MAX         = 40;
+const float ESCUDO_MAX              = 100f;
+const float BONUS_ESCUDO_ZONA_CALMA = 1.2f;
 
-var rng = new Random();
+// Valores temporales para trabajar con resultados predecibles.
 
 
-var kmRecorridos      = 0;
-var combustibleActual = COMBUSTIBLE_INICIAL;
-var escudoActual      = 8f;
+const int DISTANCIA_ASCENSO_MIN         = 5;
+const int DISTANCIA_ASCENSO_MAX         = 10;
+const int COMBUSTIBLE_ASCENSO_MIN       = 3;
+const int COMBUSTIBLE_ASCENSO_MAX       = 7;
+const int DISTANCIA_PERDIDA_ESPERAR_MIN = 3;
+const int DISTANCIA_PERDIDA_ESPERAR_MAX = 5;
+const int ESCUDO_RECUPERADO_MIN         = 5;
+const int ESCUDO_RECUPERADO_MAX         = 10;
+const int DMG_ESCOMBRO_ESCOMBRO_MIN     = 3;
+const int DMG_ESCOMBRO_ESCOMBRO_MAX     = 7;
+const int COMBUSTIBLE_ESQUIVAR_MIN      = 3;
+const int COMBUSTIBLE_ESQUIVAR_MAX      = 5;
 
-Console.WriteLine($"Distancia: {kmRecorridos}");
-Console.WriteLine($"Combustible: {combustibleActual}");
-Console.WriteLine($"Escudo: {escudoActual}");
+// Variables de estado
+var distanciaRecorrida      = 0;
+var combustibleActual    = COMBUSTIBLE_MAX;
+var escudoActual       = ESCUDO_MAX;
 
-while (kmRecorridos < DISTANCIA_AL_ESPACIO_KM && combustibleActual > 0)
+Random    rng               = new Random();
+
+// Ciclo principal del juego
+
+
+while (distanciaRecorrida < DISTANCIA_AL_ESPACIO && combustibleActual >= COMBUSTIBLE_ASCENSO_MIN && escudoActual > 0)
 {
-    var esZonaDeEscombros = true;
-    var esZonaDeCalma     = false;
-    var esZonaNeutral     = !esZonaDeEscombros && !esZonaDeCalma;
+    var esZonaCalma     = false;
+    var esZonaEscombros = true;
 
+    // Estadísticas del jugador
+    PrintStatistic(
+                   "Distancia",
+                   distanciaRecorrida,
+                   DISTANCIA_AL_ESPACIO
+                  );
+    PrintStatistic(
+                   "Escudo",
+                   (int) escudoActual,
+                   (int) ESCUDO_MAX
+                  );
+    PrintStatistic(
+                   "Combustible",
+                   combustibleActual,
+                   COMBUSTIBLE_MAX
+                  );
+
+    PrintTurn(distanciaRecorrida,
+              DISTANCIA_AL_ESPACIO,
+              esZonaEscombros,
+              esZonaCalma
+             );
+
+    // Selección de la acción del jugador
     string opcion;
-    bool   opcionValida = false;
-
+    bool   esOpcionValida;
     do
     {
-        if (esZonaDeEscombros)
+        if (esZonaCalma)
         {
-            Console.WriteLine("Estás en una zona de escombros.");
-            Console.WriteLine("Qué acción quieres realizar:");
+            Console.WriteLine("¡Has entrado en una zona de calma!");
+            Console.WriteLine("Opciones:");
             Console.WriteLine("1. Ascender");
             Console.WriteLine("2. Esperar");
-            if (combustibleActual >= COMBUSTIBLE_PARA_ESQUIVAR)
+        }
+        else if (esZonaEscombros)
+        {
+            Console.WriteLine("¡Has entrado en una zona de escombros!");
+            Console.WriteLine("Opciones:");
+            Console.WriteLine("1. Ascender");
+            Console.WriteLine("2. Esperar");
+
+            if (combustibleActual >= COMBUSTIBLE_ESQUIVAR_MIN)
             {
                 Console.WriteLine("3. Esquivar");
             }
             else
             {
-                Console.WriteLine("3. Esquivar (Sin combustible)");
+                Console.WriteLine("3. Esquivar (No tienes suficiente combustible para esquivar)");
             }
         }
-        else if (esZonaDeCalma)
+        else
         {
-            Console.WriteLine("Estás en una zona de calma.");
-            Console.WriteLine("Qué acción quieres realizar:");
-            Console.WriteLine("1. Ascender");
-            Console.WriteLine("2. Esperar (Bono de recuperación)");
-        }
-        else if (esZonaNeutral)
-        {
-            Console.WriteLine("Estás en una zona neutral.");
-            Console.WriteLine("Qué acción quieres realizar:");
+            Console.WriteLine("Opciones:");
             Console.WriteLine("1. Ascender");
             Console.WriteLine("2. Esperar");
         }
 
-
         opcion = Console.ReadLine() ?? "";
 
-        opcionValida = opcion != "1"
-                       && opcion != "2"
-                       && (opcion == "3" && !esZonaDeEscombros);
+        esOpcionValida = opcion == "1" ||
+                         opcion == "2" ||
+                         (esZonaEscombros && combustibleActual >= COMBUSTIBLE_ESQUIVAR_MIN && opcion == "3");
 
-        if (opcionValida)
+        if (!esOpcionValida)
         {
-            Console.WriteLine("Opción inválida, intenta de nuevo.");
+            Console.WriteLine("Opción inválida. Intenta de nuevo.");
         }
-    } while (opcionValida);
+    } while (!esOpcionValida);
 
-    if (opcion == "1")
+    switch (opcion)
     {
-        if (esZonaDeEscombros)
+        case "1":
         {
-            escudoActual = Math.Max(
-                                    0,
-                                    escudoActual - DMG_ESCOMBRO
-                                   );
+            if (esZonaEscombros)
+            {
+                var dmgEscombroReal = rng.Next(DMG_ESCOMBRO_ESCOMBRO_MIN,
+                                               DMG_ESCOMBRO_ESCOMBRO_MAX + 1);
 
-            if (escudoActual == 0) break;
+                float dmgEscudo = dmgEscombroReal;
+                dmgEscudo    =  Math.Min(dmgEscudo, escudoActual);
+                escudoActual -= dmgEscudo;
 
-            Console.WriteLine("Recibiste daño de los escombros.");
+                Console.WriteLine("¡Has recibido " + dmgEscudo + " unidades de daño en el escudo!");
+
+                if (escudoActual <= 0)
+                {
+                    Console.WriteLine("¡Tu escudo se ha agotado!");
+                    break;
+                }
+            }
+
+
+            var combustibleReal = rng.Next(COMBUSTIBLE_ASCENSO_MIN,
+                                        COMBUSTIBLE_ASCENSO_MAX + 1);
+
+            if (combustibleReal > combustibleActual)
+            {
+                Console.WriteLine("!No tienes suficiente combustible¡ Has perdido");
+            }
+            else
+            {
+                var distanciaReal = rng.Next(DISTANCIA_ASCENSO_MIN,
+                                             DISTANCIA_ASCENSO_MAX + 1);
+
+                distanciaRecorrida += distanciaReal;
+
+                combustibleActual  -= combustibleReal;
+
+                Console.WriteLine("Has ascendido " + distanciaReal + " unidades.");
+                Console.WriteLine("Has utilizado " + combustibleReal + " unidades de combustible.");
+            }
+            break;
         }
+        case "2":
+        {
+            var escudoRecuperadoReal = rng.Next(ESCUDO_RECUPERADO_MIN,
+                                                ESCUDO_RECUPERADO_MAX + 1);
 
-        Console.WriteLine("Ascendiendo...");
-        kmRecorridos      += ASCENSO_POR_TURNO;
-        combustibleActual -= COMBUSTIBLE_POR_TURNO;
+            var bonus            = esZonaCalma ? BONUS_ESCUDO_ZONA_CALMA : 1f;
+            var escudoRecuperado = escudoRecuperadoReal * bonus;
+            escudoRecuperado =  Math.Min(escudoRecuperado, ESCUDO_MAX - escudoActual);
+            escudoActual     += escudoRecuperado;
+            Console.WriteLine("¡Has recuperado " + escudoRecuperado + " unidades de escudo!");
+
+            if (esZonaEscombros)
+            {
+                var dmgEscombroReal = rng.Next(DMG_ESCOMBRO_ESCOMBRO_MIN,
+                                               DMG_ESCOMBRO_ESCOMBRO_MAX + 1);
+
+                float dmgEscudo = dmgEscombroReal;
+                dmgEscudo    =  Math.Min(dmgEscudo, escudoActual);
+                escudoActual -= dmgEscudo;
+
+                Console.WriteLine("¡Has recibido " + dmgEscudo + " unidades de daño en el escudo!");
+            }
+
+            var distanciaPerdidaEsperarReal = rng.Next(DISTANCIA_PERDIDA_ESPERAR_MIN,
+                                                       DISTANCIA_PERDIDA_ESPERAR_MAX + 1);
+
+            var distanciaPerdida            = Math.Min(distanciaPerdidaEsperarReal, distanciaRecorrida);
+            distanciaRecorrida -= distanciaPerdida;
+            Console.WriteLine("Has perdido " + distanciaPerdida + " unidades de distancia.");
+
+            break;
+        }
+        case "3":
+        {
+            var combustibleEsquivarReal = rng.Next(COMBUSTIBLE_ESQUIVAR_MIN,
+                                                   COMBUSTIBLE_ESQUIVAR_MAX + 1);
+
+            combustibleActual -= combustibleEsquivarReal;
+
+            Console.WriteLine("Has esquivado un obstáculo.");
+            Console.WriteLine("Has utilizado " + combustibleEsquivarReal + " unidades de combustible.");
+            break;
+        }
     }
-    else if (opcion == "2")
+
+    Console.WriteLine();
+    Console.WriteLine("----------------------------------------");
+}
+
+if (distanciaRecorrida >= DISTANCIA_AL_ESPACIO)
+{
+    Console.WriteLine("¡Felicidades! Has llegado al espacio.");
+}
+else if (combustibleActual < COMBUSTIBLE_ASCENSO_MIN)
+{
+    Console.WriteLine("¡No tienes suficiente combustible para ascender! Has perdido.");
+}
+else if (escudoActual <= 0)
+{
+    Console.WriteLine("¡Tu escudo se ha agotado! Has perdido.");
+}
+
+//break general
+return;
+
+void PrintStatistic(string prefix, int value, int maxValue) {
+    var (filledBar, emptyBar) = ProgressBar(value, maxValue);
+    var (textColor, bgColor)  = ColorGradient(value, maxValue);
+
+    Console.ResetColor();
+    Console.Write($"{prefix} [");
+    Console.BackgroundColor = bgColor;
+    Console.ForegroundColor = textColor;
+    Console.Write($"{filledBar}{emptyBar}");
+    Console.ResetColor();
+    Console.Write($"] {value}/{maxValue}");
+    Console.WriteLine();
+}
+
+void PrintTurn(int height, int maxHeight, bool debrisZone, bool calmZone, int maxRows = 10, int maxCols = 20) {
+    Console.WriteLine("=========================");
+
+    var shipRow = (int)Math.Round((float)height / maxHeight * maxRows);
+
+    for (var row = maxRows; row >= 0; row--)
     {
-        Console.WriteLine("Esperando...");
-
-        var bonoTurno    = esZonaDeCalma ? ZONA_CALMA_BONO_ESCUDO : 1f;
-        var escudoGanado = rng.Next(ESCUDO_MIN_POR_TURNO, ESCUDO_MAX_POR_TURNO + 1);
-        var escudoTurno  = escudoActual + escudoGanado * bonoTurno;
-
-        escudoActual = Math.Min(
-                                ESCUDO_MAXIMO,
-                                escudoTurno
-                               );
-
-        if (esZonaDeEscombros)
-        {
-            escudoActual = Math.Max(
-                                    0,
-                                    escudoActual - DMG_ESCOMBRO
-                                   );
-
-            if (escudoActual == 0) break;
-
-            Console.WriteLine("Recibiste daño de los escombros.");
-        }
-
-        kmRecorridos = Math.Max(
-                                0,
-                                kmRecorridos - PERDIDA_KM_POR_ESPERAR
-                               );
+        var lane = GetSpaceLane(row == shipRow, debrisZone, calmZone, maxCols);
+        Console.WriteLine(lane);
     }
-    else if (opcion == "3")
-    {
-        if (combustibleActual >= COMBUSTIBLE_PARA_ESQUIVAR)
-        {
-            Console.WriteLine("Haz esquivado los escombros.");
 
-            combustibleActual -= COMBUSTIBLE_PARA_ESQUIVAR;
+    Console.WriteLine("=========================");
+}
+
+(ConsoleColor, ConsoleColor) ColorGradient(int value, int maxValue) {
+    var percentage = (float)value / maxValue;
+    return percentage switch
+           {
+               < 0.5f  => (ConsoleColor.Red, ConsoleColor.Black),
+               < 0.75f => (ConsoleColor.Yellow, ConsoleColor.Black),
+               _       => (ConsoleColor.Green, ConsoleColor.Black)
+           };
+}
+
+(string, string) ProgressBar(int value, int maxValue, int barLength = 20) {
+    var percentage   = (float)value / maxValue;
+    var filledLength = (int)(barLength * percentage);
+    var emptyLength  = barLength - filledLength;
+
+    var filledBar = new string('█', filledLength);
+    var emptyBar  = new string('░', emptyLength);
+
+    return (filledBar, emptyBar);
+}
+
+string GetSpaceLane(bool ship, bool debris, bool calm, int maxCols) {
+    if (!ship) return "| " + new string('.', maxCols - 2);
+
+    var lane = new char[maxCols];
+    lane[0] = '|';
+    lane[1] = ' ';
+
+    for (var i = 2; i < maxCols; i++)
+    {
+        if (i == maxCols / 2)
+        {
+            lane[i] = '^';
+        }
+        else if (debris && i % 2 == 0)
+        {
+            lane[i] = 'x';
+        }
+        else if (calm && i % 2 == 0)
+        {
+            lane[i] = '~';
         }
         else
         {
-            escudoActual = Math.Max(
-                                    0,
-                                    escudoActual - DMG_ESCOMBRO
-                                   );
-
-            if (escudoActual == 0) break;
-
-            Console.WriteLine("Recibiste daño de los escombros.");
+            lane[i] = ' ';
         }
     }
 
-    Console.WriteLine($"Distancia: {kmRecorridos}");
-    Console.WriteLine($"Combustible: {combustibleActual}");
-    Console.WriteLine($"Escudo: {escudoActual}");
-}
-
-if (kmRecorridos >= DISTANCIA_AL_ESPACIO_KM)
-{
-    Console.WriteLine("¡Llegaste al espacio!");
-}
-else
-{
-    Console.WriteLine("No llegaste al espacio.");
+    return new string(lane);
 }
