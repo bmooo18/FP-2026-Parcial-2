@@ -904,8 +904,116 @@ solo nombre. Cada valor se guarda en una posición identificada por un índice n
 * Usa 3D cuando --> representas espacio o estructuras volumétricas.
 * Arreglos Jagged (Irregulares) --> es una estantería irregular: cada fila tiene un número diferente de cajas
 
+Sintaxis
+```
+// Tipo de dato + corchetes + identificador
+string[] enemies;
+// Longitud
+enemies = new string[4];
+// Tipo de dato + corchetes + identificador
+string[] levels;
+
+// Inicialización por valores
+levels = [
+"Forest",
+"Cave",
+"Castle",
+];
+```
+Existen 3 formas de declarar un arreglo
+* Vacio con longitud
+* Con valores (Completa)
+* Con valores ( Extencion)
+
+```
+// Declarar y crear un arreglo vacío de 4 elementos
+string[] enemies = new string[4];
+
+// Declarar un arreglo con valores 10, 25, 50
+int[] scores = new int[] {
+10, 25, 50
+};
+
+// Crear e inicializar sus valores mediante
+// "Collection expression" utilizando corchetes
+string[] levels = [
+"Forest",
+"Cave",
+"Castle",
+
+];
+```
+
+Ejemplo visual
+```
+    1      2  3  4 <---- Poscicion: Ubicación “natural” de un elemento.
+[elemento][ ][ ][ ] 4 <---- Longitud: Cantidad de elementos que PUEDE contener
+    0      1  2  3 <---- Indice: Ubicación “real” de un elemento.
+```
+Ejemplo
+```
+// Antes de ejecutar, responde:
+// - ¿Cuántos valores contiene inventory?
+// - ¿Qué representa [0]?
+// - ¿Qué mostrará inventory[2]?
+// - ¿Qué cambia en la línea 11?
+// - ¿Cuántas veces se ejecutará el for?
+// - ¿Qué contiene inventory.Length?
 
 
+// Después de ejecutar, realiza estos cambios:
+// - Reemplaza la declaración de valores por la de longitud
+// - Asigna los valores
+// - Agrega un nuevo elemento  "Espada" al arreglo
+// - Asigna "Linterna" a inventory[inventory.Length - 1]
+// - Imprime inventory.Length
+// - Imprime los 4 valores
+// - Asigna "Hacha" a inventory[5]
+// - Asigna "Casco" a inventory[-1]
+
+
+string[] inventory =
+[
+"Espada",
+"Poción",
+"Llave",
+"Espada"
+];
+
+// Cuando necesitas conocer el índice o controlar el recorrido
+for (var i = 0; i < inventory.Length; ++i)
+{
+Console.WriteLine(inventory[i]);
+}
+
+// Cuando solo necesitas el elemento
+foreach (string enemy in enemies)
+{
+Console.WriteLine(enemy);
+}
+// foreach(VARIABLE in ARREGLO)
+
+
+Console.WriteLine(inventory[0]);
+Console.WriteLine(inventory[2]);
+
+inventory[1] = "Escudo";
+
+inventory[inventory.Length - 1]   = "Linterna";
+// atajo inventory[^1] = "Linterna";
+
+
+Console.WriteLine(inventory.Length);
+
+for (var i = 0; i < inventory.Length; ++i)
+{
+Console.WriteLine(inventory[i]);
+}
+
+// error outside the bounds of the array
+// inventory[5] = "Hacha";
+// inventory[-1] = "Casco";
+```
 ________________________________________________________________________________________
 
 ## 10. Listas
