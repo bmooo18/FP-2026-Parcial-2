@@ -7,4 +7,23 @@
 5. Player ataca por 5
 6. ¡Enemy ha muerto!
 */
-Console.WriteLine("Hello, World!");
+
+// Arreglo
+string[] log;
+// Lista
+List<string> log = new List<string>();
+
+//Genera un programa que administre los enemigos activos de una zona. Muestra el estado en cada paso:
+/*
+1. Slime, Globlin, Skeleton
+2. Aparece Orc
+3. Muere un Slime
+4. Aparece Orc
+5. Muere Orc
+*/
+
+// Arreglo
+string[] log;
+// Lista
+List<string> log = new List<string>();
+

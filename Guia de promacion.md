@@ -950,6 +950,9 @@ Ejemplo visual
 [elemento][ ][ ][ ] 4 <---- Longitud: Cantidad de elementos que PUEDE contener
     0      1  2  3 <---- Indice: Ubicación “real” de un elemento.
 ```
+
+* Obtener longitud: Console.WriteLine(inventory.Length);
+
 Ejemplo
 ```
 // Antes de ejecutar, responde:
