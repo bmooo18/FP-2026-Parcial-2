@@ -1018,3 +1018,29 @@ ________________________________________________________________________________
 
 ## 10. Listas
 [ Listas Guia]([texto](https://drive.google.com/file/d/1eVRmnJ_BeLmfcOjMeBdSdBzYiEwrV3uE/view))
+
+Ejemplo visual
+```
+    1      2  3  4 <---- Poscicion: Ubicación “natural” de un elemento.
+[elemento][ ][ ][ ] 1 <---- Conteo: Cantidad de elementos que ESTAN conteniendo
+                    4 <---- Capacidad: Cantidad de elementos que ESTAN CREADOS
+    0      1  2  3 <---- Indice: Ubicación “real” de un elemento.
+```
+
+________________________________________________________________________________________
+
+## 11. Diccionario
+
+Ejemplo
+```
+
+```
+
+Ejemplo visual
+```
+    
+[elemento][ ][ ][ ] 1 <---- Conteo: Cantidad de elementos que ESTAN conteniendo
+   llave  
+[   10   ][ ][ ][ ] 4 <---- Capacidad: Cantidad de elementos que ESTAN CREADOS
+   valor
+```

@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Live Code_Escape del planet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Array Test", "Array Test\Array Test.csproj", "{5C490504-8C91-4D42-985A-15F65301CA02}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microejercicios de Arreglos y Listas", "Microejercicios de Arreglos y Listas\Microejercicios de Arreglos y Listas.csproj", "{1E6B8861-F435-4DC9-9068-BC54D8B8F0DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroEjercicio - Diccionario", "MicroEjercicio - Diccionario\MicroEjercicio - Diccionario.csproj", "{0437C46A-C49D-497E-943E-FBC68B5B5EEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +52,13 @@ Global
 		{5C490504-8C91-4D42-985A-15F65301CA02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C490504-8C91-4D42-985A-15F65301CA02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C490504-8C91-4D42-985A-15F65301CA02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E6B8861-F435-4DC9-9068-BC54D8B8F0DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E6B8861-F435-4DC9-9068-BC54D8B8F0DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E6B8861-F435-4DC9-9068-BC54D8B8F0DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E6B8861-F435-4DC9-9068-BC54D8B8F0DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0437C46A-C49D-497E-943E-FBC68B5B5EEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0437C46A-C49D-497E-943E-FBC68B5B5EEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0437C46A-C49D-497E-943E-FBC68B5B5EEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0437C46A-C49D-497E-943E-FBC68B5B5EEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
