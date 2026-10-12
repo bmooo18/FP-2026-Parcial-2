@@ -908,21 +908,12 @@ ________________________________________________________________________________
 | Acceso por clave                 |         |          |X
 
 
-## 9. Arreglos --> cantidad definida
-[ Arreglos Guia]([texto](https://drive.google.com/file/d/1tdg-LGUZC-kQIld2LdI13LaX1VVOIgLS/view))
-
+## 9. Arreglos basico --> cantidad definida
 
 Un arreglo (array) es una estructura que permite almacenar múltiples valores del mismo tipo bajo un
 solo nombre. Cada valor se guarda en una posición identificada por un índice numérico.
 
 * Un arreglo guarda muchos valores del mismo tipo.
-
-
-* Usa variables -->  cuando solo necesitas un valor individual.
-* Usa arreglos 1D --> cuando necesitas varios valores del mismo tipo.
-* Usa 2D cuando --> tus datos tienen forma de tabla o mapa.
-* Usa 3D cuando --> representas espacio o estructuras volumétricas.
-* Arreglos Jagged (Irregulares) --> es una estantería irregular: cada fila tiene un número diferente de cajas
 
 Sintaxis Crear un arreglo
 ```
@@ -1062,9 +1053,365 @@ Console.WriteLine(inventory[i]);
 // inventory[5] = "Hacha";
 // inventory[-1] = "Casco";
 ```
+
+## 9.1. Arreglos avanzados
+[ Arreglos Guia]([texto](https://drive.google.com/file/d/1tdg-LGUZC-kQIld2LdI13LaX1VVOIgLS/view))
+
+* Usa variables -->  cuando solo necesitas un valor individual.
+* Usa arreglos 1D --> cuando necesitas varios valores del mismo tipo.
+* Usa 2D cuando --> tus datos tienen forma de tabla o mapa.
+* Ejemplo visual
+```
+    C O L U M N A S
+  F | [0] | [1] | [2]
+  I ----|-----|-----|----
+  L [0] | 5 | 8 | 3
+  A [1] | 9 | 2 | 7
+  S [2] | 4 | 6 | 1
+  
+  int[,] map = {
+{5, 8, 3},
+{9, 2, 7},
+{4, 6, 1}
+};
+var letters = new char[5,3]; // 5 Filas x 3 Columnas
+```
+* Usa 3D cuando --> representas espacio o estructuras volumétricas.
+* Ejemplo visual
+```
+   Nivel [0]
+C O L U M N A S
+F | [0] | [1]
+I ----|-----|---
+L [0] | 5 | 8
+A [1] | 9 | 2
+Nivel [1]
+C O L U M N A S
+F | [0] | [1]
+I ----|-----|---
+L [0] | 5 | 8
+A [1] | 9 | 2
+
+int[,,] cube = {
+{
+{1, 2},
+{3, 4}
+},
+{
+{5, 6},
+{7, 8}
+}
+};
+var letters = new char[5,3,7]; // 5 Filas x 3 Columnas x + Profundidad
+```
+* Arreglos Jagged (Irregulares) --> es una estantería irregular: cada fila tiene un número diferente de cajas
+
+```
+int[][] enemigosPorNivel = {
+new int[] {1, 2, 3},
+new int[] {4, 5},
+new int[] {6}
+};
+
+// Representacion final
+[0] ▢ ▢ ▢
+[1] ▢ ▢
+[2] ▢
+```
+### Declaración e Inicialización
+En C#, los arreglos se declaran indicando el tipo de dato y el tamaño o los valores iniciales.
+📌 Importante: El tamaño del arreglo no puede cambiar después de crearse.
+
+* Declaración sin valores
+En este caso, se debe definir la longitud desde el principio.
+  * Tipo explícito:
+```
+// Una dimensión
+int[] array1D = new int[3]; // 3 filas
+// Dos dimensiones
+int[,] array2D = new int[3,5]; // 3 filas, 5 columnas
+// Tres dimensiones
+int[,,] array3D = new int[3,5,9]; // 3 filas, 5 columnas, 9 profundudad
+// Irregular / Jagged
+int[][] jagged = new int[3][]; // 3 Filas
+jagged[0] = new int[5]; // Fila #1, tiene 5 columnas
+jagged[1] = new int[2]; // Fila #2, tiene 2 columnas
+jagged[2] = new int[8]; // Fila #3, tiene 8 columnas
+```
+  * Tipo implícito:
+```
+// Una dimensión
+var array1D = new int[3]; // 3 filas
+// Dos dimensiones
+var array2D = new int[3,5]; // 3 filas, 5 columnas
+// Tres dimensiones
+var array3D = new int[3,5,9]; // 3 filas, 5 columnas, 9 profundudad
+// Irregular / Jagged
+var jagged = new int[3][]; // 3 Filas
+jagged[0] = new int[5]; // Fila #1, tiene 5 columnas
+jagged[1] = new int[2]; // Fila #2, tiene 2 columnas
+jagged[2] = new int[8]; // Fila #3, tiene 8 columnas
+```
+* Declaración con valores iniciales
+La longitud del arreglo está determinada por la cantidad de elementos que se definen
+    * Tipo explícito:
+```
+// Una dimensión
+int[] array1D = new int[] { 12, 34, 56 }; // 3 elementos
+// Dos dimensiones
+int[,] array2D = new int[,] {
+{ 11, 22, 33, 44, 55 }, // Fila 1, 5 elementos
+{ 66, 77, 88, 99, 10 }, // Fila 2, 5 elementos
+{ 21, 32, 43, 54, 65 }, // Fila 3, 5 elementos
+};
+// Tres dimensiones
+int[,,] array3D = new int[,,] {
+{ // Fila 1
+{ 10, 11, 12, 13, 14, 15, 16, 17, 18 }, // Columna 1, 9 Profundidad
+{ 19, 20, 21, 22, 23, 24, 25, 26, 27 }, // Columna 2, 9 Profundidad
+{ 28, 29, 30, 31, 32, 33, 34, 35, 36 }, // Columna 3, 9 Profundidad
+{ 37, 38, 39, 40, 41, 42, 43, 44, 45 }, // Columna 4, 9 Profundidad
+{ 46, 47, 48, 49, 50, 51, 52, 53, 54 }, // Columna 5, 9 Profundidad
+},
+{ // Fila 2
+{ 55, 56, 57, 58, 59, 60, 61, 62, 63 }, // Columna 1, 9 Profundidad
+{ 64, 65, 66, 67, 68, 69, 70, 71, 72 }, // Columna 2, 9 Profundidad
+{ 73, 74, 75, 76, 77, 78, 79, 80, 81 }, // Columna 3, 9 Profundidad
+{ 82, 83, 84, 85, 86, 87, 88, 89, 90 }, // Columna 4, 9 Profundidad
+{ 91, 92, 93, 94, 95, 96, 97, 98, 99 }, // Columna 5, 9 Profundidad
+},
+{ // Fila 3
+{ 99, 98, 97, 96, 95, 94, 93, 92, 91 }, // Columna 1, 9 Profundidad
+{ 90, 89, 88, 87, 86, 85, 84, 83, 82 }, // Columna 2, 9 Profundidad
+{ 81, 80, 79, 78, 77, 76, 75, 74, 73 }, // Columna 3, 9 Profundidad
+{ 72, 71, 70, 69, 68, 67, 66, 65, 64 }, // Columna 4, 9 Profundidad
+{ 63, 62, 61, 60, 59, 58, 57, 56, 55 }, // Columna 5, 9 Profundidad
+}
+};
+// Irregular / Jagged
+int[][] jagged = new int[3][]
+{
+new int[] { 11, 22, 33, 44, 55 }, // Fila #1, 5 columnas
+new int[] { 66, 77 }, // Fila #2, 2 columnas
+new int[] { 88, 99, 10, 21, 32, 43, 54, 65 } // Fila #3, 8 columnas
+};
+```
+    * Tipo implícito:
+```
+// Una dimensión
+var array1D = new int[] { 12, 34, 56 }; // 3 elementos
+// Dos dimensiones
+var array2D = new int[,] {
+{ 11, 22, 33, 44, 55 }, // Fila 1, 5 elementos
+{ 66, 77, 88, 99, 10 }, // Fila 2, 5 elementos
+{ 21, 32, 43, 54, 65 }, // Fila 3, 5 elementos
+};
+// Tres dimensiones
+var array3D = new int[,,] {
+{ // Fila 1
+{ 10, 11, 12, 13, 14, 15, 16, 17, 18 }, // Columna 1, 9 Profundidad
+{ 19, 20, 21, 22, 23, 24, 25, 26, 27 }, // Columna 2, 9 Profundidad
+{ 28, 29, 30, 31, 32, 33, 34, 35, 36 }, // Columna 3, 9 Profundidad
+{ 37, 38, 39, 40, 41, 42, 43, 44, 45 }, // Columna 4, 9 Profundidad
+{ 46, 47, 48, 49, 50, 51, 52, 53, 54 }, // Columna 5, 9 Profundidad
+},
+{ // Fila 2
+{ 55, 56, 57, 58, 59, 60, 61, 62, 63 }, // Columna 1, 9 Profundidad
+{ 64, 65, 66, 67, 68, 69, 70, 71, 72 }, // Columna 2, 9 Profundidad
+{ 73, 74, 75, 76, 77, 78, 79, 80, 81 }, // Columna 3, 9 Profundidad
+{ 82, 83, 84, 85, 86, 87, 88, 89, 90 }, // Columna 4, 9 Profundidad
+{ 91, 92, 93, 94, 95, 96, 97, 98, 99 }, // Columna 5, 9 Profundidad
+},
+{ // Fila 3
+{ 99, 98, 97, 96, 95, 94, 93, 92, 91 }, // Columna 1, 9 Profundidad
+{ 90, 89, 88, 87, 86, 85, 84, 83, 82 }, // Columna 2, 9 Profundidad
+{ 81, 80, 79, 78, 77, 76, 75, 74, 73 }, // Columna 3, 9 Profundidad
+{ 72, 71, 70, 69, 68, 67, 66, 65, 64 }, // Columna 4, 9 Profundidad
+{ 63, 62, 61, 60, 59, 58, 57, 56, 55 }, // Columna 5, 9 Profundidad
+}
+};
+// Irregular / Jagged
+var jagged = new int[3][]
+{
+new int[] { 11, 22, 33, 44, 55 }, // Fila #1, 5 columnas
+new int[] { 66, 77 }, // Fila #2, 2 columnas
+new int[] { 88, 99, 10, 21, 32, 43, 54, 65 } // Fila #3, 8 columnas
+};
+```
+* Propiedad .Length --> devuelve la cantidad total de elementos de un arreglo.
+```  
+int[] scores = {10, 20, 30, 40};
+Console.WriteLine(scores.Length); // 4
+```
+* Método .GetLength(<dimensión>) --> devuelve la longitud de la dimensión (comenzando en 0 para las filas).
+  * Usa .GetLength para arreglos "cuadrados". Utiliza Length para arreglos "irregulares/jagged".
+```
+int[,] matrix = new int[3,5];
+Console.WriteLine(matrix.GetLength(0)); // 3 filas
+Console.WriteLine(matrix.GetLength(1)); // 5 columnas
+```
+* Acceso y Modificación de Elementos
+```
+int[] vidas = {100, 80, 50, 50, 80, 44, 123, 99};
+Console.WriteLine(vidas[0]); // Muestra 100
+vidas[2] = 75; // Cambia la tercera vida a 75
+
+// Para evitar errores, usa la propiedad .Length :
+int[] vidas = {100, 80, 50, 50, 80, 44, 123, 99};
+Console.WriteLine(vidas[vidas.Length - 1]); // 99
+
+// Error común: Si intentas acceder a una posición fuera del rango, obtendrás un IndexOutOfRangeException .
+int[] vidas = {100, 80, 50, 50, 80, 44, 123, 99};
+Console.WriteLine(vidas[99]); // Error, no hay posición 99
+```
+* Operador "Sombrero": ^ --> Existe un operador especial que permite acceder al los elemento en reversa, iniciando en el último.
+```
+string[] words = new string[]{
+
+// Indice desde el inicio // Índice desde el final
+
+"primero",  // 0                ^10
+"segundo",  // 1                ^9
+"tercero",  // 2                ^8
+"cuarto",   // 3                ^7
+"quinto",   // 4                ^6
+"sexto",    // 5                ^5
+"séptimo",  // 6                ^4
+"octavo",   // 7                ^3
+"noveno",   // 8                ^2
+"décimo"    // 9                ^1
+};          // 10 (o
+```
+
+* Recorrido de arreglos: ^ --> Existe un operador especial que permite acceder al los elemento en reversa, iniciando en el último.
+    * Ciclo for --> Cuando se necesita el índice, modificar elementos o recorrer por dimensiones.
+```
+// 1 Dimensión
+for (int i = 0; i < values.Length; i++) {
+Console.WriteLine($"Elemento {i}: {values[i]}");
+}
+// 3 Dimensiones (Cuadrado)
+var rows = values.GetLength(0);
+var cols = values.GetLength(1);
+var depth = values.GetLength(2);
+for (int i = 0; i < rows; i++)
+{
+for (int j = 0; j < cols; j++)
+{
+for (int k = 0; k < depth; k++)
+{
+Console.WriteLine($"Elemento {i},{j},{k}: {values[i,j,k]}");
+}
+}
+}
+// 2 Dimensiones (Jagged)
+for (int i = 0; i < values.Length; i++)
+{
+for (int j = 0; j < values[i].Length; j++)
+{
+Console.WriteLine($"Elemento {i},{j}: {values[i][j]}");
+}
+}
+```
+* Ciclo foreach --> Cuando solo se leen los valores.
+```
+// 1 Dimensión
+foreach (int val in values)
+{
+    Console.WriteLine(val);
+}
+// 3 Dimensiones
+foreach (int val in values)
+{
+    Console.WriteLine(val);
+}
+// 2 Dimensiones (Jagged)
+foreach (var row in values)
+{
+    foreach (var val in row)
+    {
+    Console.Write(val + " ");
+    }
+    Console.WriteLine();
+}
+```
+
+* Arreglos y Entrada del Usuario
+```
+int[] puntos = new int[3];
+for (int i = 0; i < puntos.Length; i++)
+{
+Console.Write($"Puntuación del jugador {i + 1}: ");
+var input = Console.ReadLine();
+int.TryParse(input, out puntos[i]);
+}
+```
+
+* Operaciones Comunes con Arreglos
+  * Suma y promedio
+```
+// Utilizando for
+var scores = new float[]{10f, 8.7f, 9.5f};
+var sum = 0f;
+var average = 0f;
+for (int i = 0; i < scores.Length; i++)
+{
+sum += scores[i];
+}
+average = sum / scores.Length;
+Console.WriteLine($"Total: {sum}, Promedio: {average}");
+
+// Utilizando foreach
+var scores = new float[]{10f, 8.7f, 9.5f};
+var sum = 0f;
+var average = 0f;
+foreach (var score in scores)
+{
+sum += score;
+}
+average = sum / scores.Length;
+Console.WriteLine($"Total: {sum}, Promedio: {average}");
+```
+
+* Valor máximo y mínimo
+```
+// Máximo - utilizando for
+var scores = new int[]{5, 7, -5, 0, 10, 6, 8};
+// Comenzamos con un valor del arreglo, cualquiera sirve
+var max = scores[1]; // Por lo general se inicia con el primer elemento
+for (int i = 1; i < scores.Length; i++)
+{
+// Máximo
+if (scores[i] > max)
+{
+max = scores[i];
+}
+}
+Console.WriteLine($"Max: {max}"); // 10
+
+// Minimo - utilizando foreach
+var scores = new int[]{5, 7, -5, 0, 10, 6, 8};
+// Comenzamos con un valor del arreglo, cualquiera sirve
+var min = scores[^1]; // Por lo general se inicia con el primer elemento
+foreach (var score in scores)
+{
+    if (score < min)
+    {
+        min = score;
+    }
+}
+Console.WriteLine($"Min: {min}"); // 10
+```
+
+* Métodos de la Clase Array
+* Array.IndexOf() --> Busca la posición de un valor. --> Array.IndexOf(arr, 50)
+* Array.Sort() --> Ordena los elementos. --> Array.Sort(scores)
+* Array.Reverse() --> Invierte el orden. --> Array.Reverse(arr)
+* Array.Copy() --> Copia elementos entre arreglos. --> Array.Copy(src, dst, n)
+
 ________________________________________________________________________________________
 
-## 10. Listas
+## 10. Listas Basico
 [ Listas Guia]([texto](https://drive.google.com/file/d/1eVRmnJ_BeLmfcOjMeBdSdBzYiEwrV3uE/view))
 Una lista es una estructura de datos que almacena una cantidad variable de
 elementos del mismo tipo.
@@ -1100,6 +1447,7 @@ true, false, false, true
 * Obtener la capacidad: Console.WriteLine($"Capacity: {LISTA.Capacity}"); // 0
 * Obtener el conteo: Console.WriteLine($"Count: {LISTA.Count}"); // 0
 * Agregar nuewvos elementos: LISTA.Add(VALOR);
+* Inserta un valor en una posición específica: .Insert(<índice>, <valor>)
 * Eliminar elemntos: LISTA.Remove(VALOR); 
   - // Este método elimina la primera aparición del valor. 
   - // Regresa un bool:
@@ -1112,6 +1460,25 @@ true, false, false, true
       - false: No encontrado
 * Obtener elementos: LISTA[INDICE]
 * Modificasr elementos: LISTA[INDICE] = valor;
+* Devuelve true si el elemento está en la lista: LISTA.Contains(valor)
+```
+List<string> inventario = new List<string>() { "Espada", "Escudo" };
+if (inventario.Contains("Espada")){
+Console.WriteLine("Tienes una espada equipada.");
+}
+```
+* Devuelve el índice del valor especificado o -1 si no existe: .IndexOf(valor)
+```
+List<string> enemigos = new List<string>() { "Orco", "Lobo", "Dragón" };
+int posL = enemigos.IndexOf("Lobo"); // 1
+int posH = enemigos.IndexOf("lobo"); // -1, no existe, debe ser [L]obo
+```
+* Ordenan y revierten el contenido: .Sort() y .Reverse()
+```
+List<int> scores = new List<int>() { 50, 10, 30, 20 };
+scores.Sort(); // [10, 20, 30, 50]
+scores.Reverse(); // [50, 30, 20, 10]
+```
 * Recorrer un lista:
 ```
 // Cuando necesitas conocer el índice o controlar el recorrido
@@ -1162,6 +1529,51 @@ foreach (string enemy in enemies)
 Console.WriteLine(enemy);
 }
 ```
+
+* Conversión entre Listas y Arreglos
+  * Lista → Arreglo
+```
+List<int> valores = new List<int>() { 10, 20, 30 };
+int[] array = valores.ToArray();
+```
+  * Arreglo → Lista
+```
+int[] numeros = { 1, 2, 3, 4 };
+List<int> lista = numeros.ToList();
+
+// Para usar .ToList() , agrega:
+using System.Linq
+```
+
+## 10. Listas avanzado
+permite almacenar múltiples valores del mismo tipo, pero a
+diferencia de los arreglos, puede crecer o reducir su tamaño dinámicamente.
+
+* Namespace --> es un contenedor lógico, que agrupa funcionalidad (clases, interfaces, estructuras, etc.) con el fin de organizar el código y evitar conflictos.
+  * Es como una carpeta dentro de una computadora, dentro de la cual guardas archivos
+    (en este caso, clases, interfaces, etc.).
+    Puedes tener dos archivos con el mismo nombre, siempre y cuando estén en carpetas diferentes.
+```
+using System.Collections.Generic
+
+// Sin el using, escribir el nombre completo
+System.Collections.Generic.List<int> valores = new System.Collections.Generic.List<int>
+```
+
+Ejemplo visual
+```
+| Índice | Contenido  |
+|--------|------------|
+| [0]    | Espada     |
+| [1]    | Poción     |
+| [2]    | Llave Roja |
+| [3]    | Escudo     |
+
+List<string> inventario = new List<string>() {
+"Espada", "Poción", "Llave Roja", "Escudo"
+}; // Tiene una longitud de 4 elementos
+```
+
 ________________________________________________________________________________________
 
 ## 11. Diccionario
