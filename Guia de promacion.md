@@ -888,7 +888,27 @@ for (int i = 0; i < 10; i++)
 
 ________________________________________________________________________________________
 
-## 9. Arreglos
+| Necesito...                      | Arreglo |    Lista | Diccionario
+|:---------------------------------|--------:|---------:|---:
+| Guardar varios elementos         |      Sí |       Sí |Sí
+| Elementos del mismo tipo         |      Sí |       Sí |Sí(clave/valor)
+| Acceso mediante índice           |      Sí |       Sí |No
+| Cantidad fija                    |      Sí |       No |No
+| Ordenado                         |      Sí |       Sí |No
+| Agregar/eliminar elementos       |      No |       Sí |Sí
+| Cantidad de elementos            |  Length |    Count |Count
+| Capacidad total                  |  Length | Capacity |Capacity
+| Performance al acceder/modificar |       X |        X |
+| Performance al buscar            |         |          |X
+| Performance de memoria           |       X |          |
+| Cantidad conocida de elementos   |       X |          |
+| Cantidad variable de elementos   |         |        X |X
+| Eliminar elementos               |         |        X |X
+| Acceso por índice                |       X |        X |
+| Acceso por clave                 |         |          |X
+
+
+## 9. Arreglos --> cantidad definida
 [ Arreglos Guia]([texto](https://drive.google.com/file/d/1tdg-LGUZC-kQIld2LdI13LaX1VVOIgLS/view))
 
 
@@ -904,7 +924,7 @@ solo nombre. Cada valor se guarda en una posición identificada por un índice n
 * Usa 3D cuando --> representas espacio o estructuras volumétricas.
 * Arreglos Jagged (Irregulares) --> es una estantería irregular: cada fila tiene un número diferente de cajas
 
-Sintaxis
+Sintaxis Crear un arreglo
 ```
 // Tipo de dato + corchetes + identificador
 string[] enemies;
@@ -920,6 +940,7 @@ levels = [
 "Castle",
 ];
 ```
+
 Existen 3 formas de declarar un arreglo
 * Vacio con longitud
 * Con valores (Completa)
@@ -951,7 +972,31 @@ Ejemplo visual
     0      1  2  3 <---- Indice: Ubicación “real” de un elemento.
 ```
 
-* Obtener longitud: Console.WriteLine(inventory.Length);
+* Obtener longitud: Console.WriteLine(Arreglo.Length);
+* Obtener elementos: Arreglo[indice]
+* Modificar elementos: ARREGLO[INDICE] = valor;
+
+
+* Para recorrer un arreglo:
+```
+// Cuando necesitas conocer el índice o controlar el recorrido
+
+for (int i = 0; i < enemies.Length; i++)
+{
+Console.WriteLine($"{i}: {enemies[i]}");
+}
+// for(iterador; condición; cambio)
+
+
+//Cuando solo necesitas el elemento
+
+foreach (string enemy in enemies)
+{
+Console.WriteLine(enemy);
+}
+// foreach(VARIABLE in ARREGLO)
+
+```
 
 Ejemplo
 ```
@@ -1021,6 +1066,8 @@ ________________________________________________________________________________
 
 ## 10. Listas
 [ Listas Guia]([texto](https://drive.google.com/file/d/1eVRmnJ_BeLmfcOjMeBdSdBzYiEwrV3uE/view))
+Una lista es una estructura de datos que almacena una cantidad variable de
+elementos del mismo tipo.
 
 Ejemplo visual
 ```
@@ -1030,14 +1077,95 @@ Ejemplo visual
     0      1  2  3 <---- Indice: Ubicación “real” de un elemento.
 ```
 
+* Existen 4 formas principales de crear una lista:
+```
+// Lista sin capacidad inicial definida
+List<string> enemies = new List<string>();
+List<int> scores = new();
+List<int> ranks = [];
+
+// Lista con capacidad inicial de 5
+List<string> levels = new List<string>(5);
+List<int> worlds = new(5);
+
+// Lista con valores iniciales y capacidad de 3
+List<char> letters = new List<char>() { 'A', 'B', 'C' };
+
+// Lista con valores iniciales y capacidad de 4
+List<bool> answers = [
+true, false, false, true
+];
+```
+
+* Obtener la capacidad: Console.WriteLine($"Capacity: {LISTA.Capacity}"); // 0
+* Obtener el conteo: Console.WriteLine($"Count: {LISTA.Count}"); // 0
+* Agregar nuewvos elementos: LISTA.Add(VALOR);
+* Eliminar elemntos: LISTA.Remove(VALOR); 
+  - // Este método elimina la primera aparición del valor. 
+  - // Regresa un bool:
+    - true: Encontrado y eliminado
+    - false: No encontrado
+* Eliminar elemntos indice: LISTA.RemoveAt(idx);
+* Limpiar la lista: LISTA.Clear();
+  - // Regresa un bool:
+      - true: Encontrado y eliminado
+      - false: No encontrado
+* Obtener elementos: LISTA[INDICE]
+* Modificasr elementos: LISTA[INDICE] = valor;
+* Recorrer un lista:
+```
+// Cuando necesitas conocer el índice o controlar el recorrido
+for (int i = 0; i < enemies.Count; i++)
+{
+Console.WriteLine($"{i}: {enemies[i]}");
+}
+// for(iterador; condición; cambio)
+
+// Cuando solo necesitas el elemento
+foreach (string enemy in enemies)
+{
+Console.WriteLine(enemy);
+}
+// foreach(VARIABLE in LIST)
+```
+Ejemplo
+```
+// Listas
+
+// Antes de ejecutar, responde:
+// - ¿Cuántos elementos tiene enemies después de los tres Add?
+// - ¿Qué representa Count?
+// - ¿Qué pasa al agregar "Bat"?
+// - ¿Qué hace Remove("Goblin")?
+// - ¿Qué valores se imprimen?
+// - ¿Cuál es la diferencia principal contra el arreglo anterior?
+
+List<string> enemies = new List<string>()
+{
+"Slime"
+};
+
+enemies.Add("Slime");
+enemies.Add("Orc");
+enemies.Add("Goblin");
+
+Console.WriteLine($"Enemigos: {enemies.Count}");
+
+enemies.Add("Bat");
+
+Console.WriteLine($"Enemigos: {enemies.Count}");
+
+enemies.Remove("Goblin");
+
+foreach (string enemy in enemies)
+{
+Console.WriteLine(enemy);
+}
+```
 ________________________________________________________________________________________
 
 ## 11. Diccionario
-
-Ejemplo
-```
-
-```
+Un diccionario es una estructura de datos que almacena pares de: Clave → Valor
 
 Ejemplo visual
 ```
@@ -1046,4 +1174,85 @@ Ejemplo visual
    llave  
 [   10   ][ ][ ][ ] 4 <---- Capacidad: Cantidad de elementos que ESTAN CREADOS
    valor
+```
+
+* Crear un diccionario: 
+```
+// Sin capacidad inicial definida
+Dictionary<string, int> items = new Dictionary<string, int>();
+Dictionary<string, int> items = new();
+Dictionary<string, int> items = [];
+
+// Con capacidad inicial definida
+Dictionary<string, int> items = new Dictionary<string, int>(5);
+Dictionary<string, int> items = new(5);
+
+// Con valores iniciales (Completa)
+Dictionary<string, int> items = new Dictionary<string, int>()
+{
+{ "Espada", 25 },
+{ "Arco", 15 },
+{ "Hacha", 35 },
+{ "Cuchillo", 0 }
+};
+
+// Con valores iniciales (Expresión)
+Dictionary<string, int> items = new()
+{
+{ "Espada", 25 },
+{ "Arco", 15 },
+{ "Hacha", 35 },
+{ "Cuchillo", 0 }
+};
+```
+* Crear elemntos: Diccionario.Add(CLAVE, VALOR);
+* Crear elemntos cuando se desconoce si existe: Diccionario.TryAdd(CLAVE, VALOR);
+  - Regresa un bool:
+    - true: Agregado
+    - false: No agregado
+* Obtener elementos: DICC[clave]
+* Validar clave: Diccionario.ContainsKey(CLAVE)
+* Obtener elementos cuando se desconoce si existe: Diccionario.TryGetValue(CLAVE,out VALOR)
+* Eliminar elementos: Diccionario.Remove(CLAVE)
+* Vaciar diccionario: Diccionario.Clear()
+
+
+* Recorrer un diccionario
+  - Se obtiene un KeyValuePair<TKey, TValue>
+    - kv.Key: Clave del elemento
+    - kv.Value: Valor del elemento
+```
+  // Podemos utilizar var para simplificar
+  foreach (KeyValuePair<string, int> kv in d) {
+  Console.WriteLine($"Key: {kv.Key}");
+  Console.WriteLine($"Val: {kv.Value}");
+  }
+  
+  // Podemos utilizar var para simplificar
+  foreach (var kv in d) {
+  Console.WriteLine($"Key: {kv.Key}");
+  Console.WriteLine($"Val: {kv.Value}");
+  }
+```
+
+Ejemplo
+```
+Dictionary<string, int> items = new()
+{
+{ "Espada", 25 },
+{ "Arco", 15 },
+{ "Hacha", 35 },
+};
+Console.WriteLine(items["Espada"]);
+Console.WriteLine(items["Hacha"]);
+items["Arco"] = 20;
+Console.WriteLine(items["Arco"]);
+if(items.ContainsKey("Hoz")) {
+Console.WriteLine("DMG Hoz: " + items["Hoz"]);
+}
+if(items.TryGetValue("Hacha", out int dmg))
+{
+Console.WriteLine($"DMG hacha: {dmg}");
+}
+Console.WriteLine(items.Count);
 ```
