@@ -18,6 +18,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microejercicios de Arreglos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroEjercicio - Diccionario", "MicroEjercicio - Diccionario\MicroEjercicio - Diccionario.csproj", "{0437C46A-C49D-497E-943E-FBC68B5B5EEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examen2 Ejercicio 1. Taller de fabricación", "Examen2 Ejercicio 1. Taller de fabricación\Examen2 Ejercicio 1. Taller de fabricación.csproj", "{ED270562-59C5-4D39-AC7A-078D34159300}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examen2 Ejercicio 2. Personalización de un personaje", "Examen2 Ejercicio 2. Personalización de un personaje\Examen2 Ejercicio 2. Personalización de un personaje.csproj", "{8F5D5BCB-C0FE-47CE-A4FB-1F647D8382F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examen2 Ejercicio 3. Especialización de ciudades", "Examen2 Ejercicio 3. Especialización de ciudades\Examen2 Ejercicio 3. Especialización de ciudades.csproj", "{407A51FB-042A-4A1E-BC0D-246828811B9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examen2 Ejercicio 4. Depuración de un sistema de equipos", "Examen2 Ejercicio 4. Depuración de un sistema de equipos\Examen2 Ejercicio 4. Depuración de un sistema de equipos.csproj", "{7CA98286-56D8-4E1A-B8DB-8E00CC19815B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +68,21 @@ Global
 		{0437C46A-C49D-497E-943E-FBC68B5B5EEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0437C46A-C49D-497E-943E-FBC68B5B5EEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0437C46A-C49D-497E-943E-FBC68B5B5EEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED270562-59C5-4D39-AC7A-078D34159300}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED270562-59C5-4D39-AC7A-078D34159300}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED270562-59C5-4D39-AC7A-078D34159300}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED270562-59C5-4D39-AC7A-078D34159300}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F5D5BCB-C0FE-47CE-A4FB-1F647D8382F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F5D5BCB-C0FE-47CE-A4FB-1F647D8382F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F5D5BCB-C0FE-47CE-A4FB-1F647D8382F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F5D5BCB-C0FE-47CE-A4FB-1F647D8382F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{407A51FB-042A-4A1E-BC0D-246828811B9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{407A51FB-042A-4A1E-BC0D-246828811B9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{407A51FB-042A-4A1E-BC0D-246828811B9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{407A51FB-042A-4A1E-BC0D-246828811B9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CA98286-56D8-4E1A-B8DB-8E00CC19815B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CA98286-56D8-4E1A-B8DB-8E00CC19815B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CA98286-56D8-4E1A-B8DB-8E00CC19815B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CA98286-56D8-4E1A-B8DB-8E00CC19815B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
