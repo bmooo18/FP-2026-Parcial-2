@@ -6,83 +6,101 @@
 
 
 
-Console.WriteLine("Gestor de produccion de ciudades");
+
+
+
+Console.WriteLine("Gestor de producción de ciudades");
+
 
 // 1. Pedir cantidad de ciudades
 
-    Console.WriteLine("Dame la cantidad de ciudades");
-    int totalCiudades = int.Parse(Console.ReadLine());
 
-    // Variables para guardar los maximos
-    int maxMadera = 0;
-    int maxPiedra = 0;
-    int maxOro    = 0;
+   Console.WriteLine("Dame la cantidad de ciudades");
+   int totalCiudades = int.Parse(Console.ReadLine());
 
-    // Se comienza en 1 para saltarnos el 0 de indice, y inicie en 1
-    int ciudadMadera = 1;
-    int ciudadPiedra = 1;
-    int ciudadOro    = 1;
+
+   // Variables para guardar los máximos
+   int maxMadera = 0;
+   int maxPiedra = 0;
+   int maxOro    = 0;
+
+
+   // Se comienza en 1 para saltarnos el 0 de índice, y inicie en 1
+   int ciudadMadera = 1;
+   int ciudadPiedra = 1;
+   int ciudadOro    = 1;
+
 
 // 2. Registrar y comparar la producción
-    for (int i = 1; i <= totalCiudades; i++)
-    {
-        Console.WriteLine("\nCiudad " + i);
+   for (int i = 1; i <= totalCiudades; i++)
+   {
+       Console.WriteLine("\nCiudad " + i);
 
-        Console.Write("Produccion de madera: ");
-        int madera = int.Parse(Console.ReadLine());
 
-        Console.Write("Produccion de piedra: ");
-        int piedra = int.Parse(Console.ReadLine());
+       Console.Write("Producción de madera: ");
+       int madera = int.Parse(Console.ReadLine());
 
-        Console.Write("Produccion de oro: ");
-        int oro = int.Parse(Console.ReadLine());
 
-        // guardar los datos de la primera ciudad
-        if (i == 1)
-        {
-            maxMadera = madera;
-            maxPiedra = piedra;
-            maxOro    = oro;
-        }
-        else
-        {
-            // si hay uno mayor a la primera ciudad, se actializa el maximo y se guarda el indice de la ciudad
-            // mayor produccion de madera
-            if (madera > maxMadera)
-            {
-                maxMadera    = madera;
-                ciudadMadera = i;
-            }
+       Console.Write("Producción de piedra: ");
+       int piedra = int.Parse(Console.ReadLine());
 
-            // mayor produccion de piedra
-            if (piedra > maxPiedra)
-            {
-                maxPiedra    = piedra;
-                ciudadPiedra = i;
-            }
 
-            // mayor produccion de oro
-            if (oro > maxOro)
-            {
-                maxOro    = oro;
-                ciudadOro = i;
-            }
-        }
-    }
+       Console.Write("Producción de oro: ");
+       int oro = int.Parse(Console.ReadLine());
 
-    // 3. Mostrar los resultados
-    Console.WriteLine("\nResultados");
 
-    Console.WriteLine("Madera:");
-    Console.WriteLine("Ciudad: " + ciudadMadera);
-    Console.WriteLine("Produccion: " + maxMadera);
+       // guardar los datos de la primera ciudad
+       if (i == 1)
+       {
+           maxMadera = madera;
+           maxPiedra = piedra;
+           maxOro    = oro;
+       }
+       else
+       {
+           // si hay uno mayor a la primera ciudad, se actualiza el máximo y se guarda el índice de la ciudad
+           // mayor producción de madera
+           if (madera > maxMadera)
+           {
+               maxMadera    = madera;
+               ciudadMadera = i;
+           }
 
-    Console.WriteLine("\nPiedra:");
-    Console.WriteLine("Ciudad: " + ciudadPiedra);
-    Console.WriteLine("Produccion: " + maxPiedra);
 
-    Console.WriteLine("\nOro:");
-    Console.WriteLine("Ciudad: " + ciudadOro);
-    Console.WriteLine("Produccion: " + maxOro);
+           // mayor producción de piedra
+           if (piedra > maxPiedra)
+           {
+               maxPiedra    = piedra;
+               ciudadPiedra = i;
+           }
+
+
+           // mayor producción de oro
+           if (oro > maxOro)
+           {
+               maxOro    = oro;
+               ciudadOro = i;
+           }
+       }
+   }
+
+
+   // 3. Mostrar los resultados
+   Console.WriteLine("\nResultados");
+
+
+   Console.WriteLine("Madera:");
+   Console.WriteLine("Ciudad: " + ciudadMadera);
+   Console.WriteLine("Producción: " + maxMadera);
+
+
+   Console.WriteLine("\nPiedra:");
+   Console.WriteLine("Ciudad: " + ciudadPiedra);
+   Console.WriteLine("Producción: " + maxPiedra);
+
+
+   Console.WriteLine("\nOro:");
+   Console.WriteLine("Ciudad: " + ciudadOro);
+   Console.WriteLine("Producción: " + maxOro);
 
 
