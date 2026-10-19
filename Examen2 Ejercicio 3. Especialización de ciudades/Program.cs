@@ -1,8 +1,8 @@
 ﻿// EQUIPO3_INTEGRANTE_1_JORGE JAVIER GARCIA MORENO_INTEGRANTE_2_CARLOS IVAN VÁZQUEZ ACEVEDO
-// Problema: Genera un programa que registre la producción de madera, piedra y oro de varias ciudades e identifique cuál produce más de cada recurso.
-// Objetivo: Identificar la ciudad con mayor producción de cada recurso, mostrando su número y la cantidad producida.
-// Entradas: Cantidad de ciudades y producción de madera, piedra y oro de cada una.
-// Salidas: Número de la ciudad que más produce madera, piedra y oro y la cantidad producida de cada recurso.
+// Problema: Genera un programa que registre la producción de madera, piedra y oro de varias ciudades e identifique cuál produce más de cada recurso
+// Objetivo: Identificar la ciudad con mayor producción de cada recurso, mostrando su número y la cantidad producida
+// Entradas: Cantidad de ciudades y producción de madera, piedra y oro de cada una
+// Salidas: Número de la ciudad que más produce madera, piedra y oro y la cantidad producida de cada recurso
 
 
 

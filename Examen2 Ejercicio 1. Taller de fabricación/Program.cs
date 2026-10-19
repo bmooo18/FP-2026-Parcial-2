@@ -1,7 +1,7 @@
 ﻿// EQUIPO3_INTEGRANTE_1_JORGE JAVIER GARCIA MORENO_INTEGRANTE_2_CARLOS IVAN VÁZQUEZ ACEVEDO
 // Problema: Genera un programa que administre un taller de fabricación de herramientas, donde se registre una cantidad de madera, se reciban órdenes de fabricación, se registren las ordenes, se produzcan
 // Objetivo: Administrar los recursos y las órdenes del taller, controlando la madera utilizada y restante, respetando el orden de las solicitudes y mostrando un reporte final con los costos y la cantidad de herramientas fabricadas de cada tipo
-// Entradas: Cantidad de madera, Ordenes de fabricacion (hachas, palas, picos, lanzas y martillos), Costos
+// Entradas: Cantidad de madera, Ordenes de fabricacion (hachas, palas, picos, lanzas y martillos)
 // SALIDAS: Cantidad total, utilizada y restante de madera. Lista de órdenes recibidas Herramientas fabricadas, Costo de fabricación, Cantidad fabricada
 
 // ETAPA 0: Definir precios y madera
